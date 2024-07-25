@@ -1,0 +1,33 @@
+name: Deploy to Google Play Store
+
+on:
+  push:
+    branches:
+      - main  # adjust to your main branch name
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install Expo CLI
+        run: npm install -g expo-cli
+
+      - name: Authenticate with Expo
+        env:
+          EXPO_CLI_PASSWORD: ${{ secrets.EXPO_CLI_PASSWORD }}
+        run: expo login -u ${{ secrets.EXPO_CLI_USERNAME }} --non-interactive
+
+      - name: Build Android App
+        run: expo build:android --release-channel=prod --non-interactive
+
+      - name: Upload to Google Play Store
+        run: expo upload:android --latest --key-path=path/to/your/upload/key --android-package-name=com.yourcompany.yourapp --track=production --non-interactive
