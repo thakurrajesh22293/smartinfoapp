@@ -30,4 +30,4 @@ jobs:
         run: expo build:android --release-channel=prod --non-interactive
 
       - name: Upload to Google Play Store
-        run: expo upload:android --latest --key-path=path/to/your/upload/key --android-package-name=com.yourcompany.yourapp --track=production --non-interactive
+        run: expo upload:android --latest --key-path=path/to/your/upload/key --android-package-name=com.moodapps.smartinfocare --track=production --non-interactive
